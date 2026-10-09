@@ -82,6 +82,14 @@ visuals, layout and placement.
 
 ## Engine pitfalls
 
+- `input_devices/pointing/emulate_mouse_from_touch` must stay `true`: Godot's controls (Tree,
+  Button) only react to mouse events, so with it off, taps on the object list did nothing on
+  touch devices. Code that handles touch itself (the orbit camera) skips the emulated copies
+  (`event.device == InputEvent.DEVICE_ID_EMULATION`), otherwise a one-finger drag turns twice.
+  Covered by `test_tap_on_list_item_shows_object` and `test_one_finger_drag_orbits_once`.
+- Tree has extra styles for a selected item under the mouse (`hovered_selected`,
+  `hovered_selected_focus`); without them the selected entry turned white on white.
+
 - `get_theme_stylebox()` on a control not yet in the tree returns Godot's default style, not
   your theme. Build styles from your theme directly.
 - Input events reach every node's `_unhandled_input` until one calls

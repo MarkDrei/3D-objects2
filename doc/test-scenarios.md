@@ -23,6 +23,8 @@ its status. A feature is only "done" with a ✅ row.
 | Every catalog object builds, stands on the ground, plausible size and triangle count | 🔶 | `test_every_object_builds_and_stands_on_the_ground` | calls `show_object` directly |
 | Objects work outside the viewer (`TeddyBear.new()`, `Sedan.new()`) | 🔶 | `test_objects_can_be_used_without_the_viewer` | the reuse API |
 | Click on a list entry shows that object | ✅ | `test_click_on_list_item_shows_object` | |
+| Tap on a list entry (touch) shows that object | ✅ | `test_tap_on_list_item_shows_object` | needs touch-to-mouse emulation |
+| One-finger drag orbits (exactly once, not doubled by emulated mouse events) | ✅ | `test_one_finger_drag_orbits_once` | |
 | Page Down / Page Up step through objects | ✅ | `test_page_keys_step_through_objects` | |
 | Left drag orbits | ✅ | `test_left_drag_orbits` | |
 | Mouse wheel zooms in and out | ✅ | `test_wheel_zooms` | |

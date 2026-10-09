@@ -155,6 +155,10 @@ func _apply() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Touch also arrives as emulated mouse events (needed so taps work on the UI); the camera
+	# handles the touch events themselves, so it skips the emulated copies.
+	if event is InputEventMouse and event.device == InputEvent.DEVICE_ID_EMULATION:
+		return
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
 		match mb.button_index:

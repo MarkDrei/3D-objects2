@@ -132,6 +132,45 @@ func test_click_on_list_item_shows_object() -> void:
 	check(viewer.current_id == id, "clicked %s but shows %s" % [id, viewer.current_id])
 
 
+func _touch(index: int, pos: Vector2, pressed: bool) -> void:
+	var t := InputEventScreenTouch.new()
+	t.index = index
+	t.position = pos
+	t.pressed = pressed
+	Input.parse_input_event(t)
+
+
+func test_tap_on_list_item_shows_object() -> void:
+	var id := "bunny_1"
+	var pos: Vector2 = viewer.ui.item_rect(id).get_center()
+	_touch(0, pos, true)
+	await _frames(1)
+	_touch(0, pos, false)
+	await _frames(5)
+	check(viewer.current_id == id, "tapped %s but shows %s" % [id, viewer.current_id])
+
+
+func test_one_finger_drag_orbits_once() -> void:
+	var cam: OrbitCamera = viewer.cam
+	var yaw0 := cam.goal_yaw()
+	var p := _view_center()
+	_touch(0, p, true)
+	await _frames(1)
+	for i in 5:
+		p += Vector2(-20, 0)
+		var d := InputEventScreenDrag.new()
+		d.index = 0
+		d.position = p
+		d.relative = Vector2(-20, 0)
+		Input.parse_input_event(d)
+		await _frames(1)
+	_touch(0, p, false)
+	await _frames(2)
+	var turned := cam.goal_yaw() - yaw0
+	# 100 px at 0.008 rad/px; twice that would mean the emulated mouse events were used as well.
+	check(turned > 0.6 and turned < 1.0, "one-finger drag turned %.2f rad instead of 0.8" % turned)
+
+
 func test_page_keys_step_through_objects() -> void:
 	var first: String = viewer.current_id
 	await _key(KEY_PAGEDOWN)

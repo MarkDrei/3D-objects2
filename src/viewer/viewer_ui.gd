@@ -231,8 +231,8 @@ func _make_theme() -> Theme:
 	var sel := StyleBoxFlat.new()
 	sel.bg_color = ACCENT
 	sel.set_corner_radius_all(8)
-	t.set_stylebox("selected", "Tree", sel)
-	t.set_stylebox("selected_focus", "Tree", sel)
+	for style in ["selected", "selected_focus", "hovered_selected", "hovered_selected_focus"]:
+		t.set_stylebox(style, "Tree", sel)
 	var hover := StyleBoxFlat.new()
 	hover.bg_color = Color(ACCENT, 0.12)
 	hover.set_corner_radius_all(8)
@@ -241,6 +241,7 @@ func _make_theme() -> Theme:
 	t.set_color("font_color", "Tree", TEXT)
 	t.set_color("font_hovered_color", "Tree", TEXT)
 	t.set_color("font_selected_color", "Tree", Color.WHITE)
+	t.set_color("font_hovered_selected_color", "Tree", Color.WHITE)
 	t.set_color("guide_color", "Tree", Color(0, 0, 0, 0))
 	t.set_color("relationship_line_color", "Tree", Color(0, 0, 0, 0))
 	t.set_constant("v_separation", "Tree", 6)
