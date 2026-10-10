@@ -14,6 +14,16 @@ static func entries() -> Array:
 		{id = "sports_car", name = "Sportwagen", category = "Fahrzeuge", cls = SportsCar, info = "Mittelmotor-Sportwagen"},
 		{id = "compact", name = "Kleinwagen", category = "Fahrzeuge", cls = CompactCar, info = "Rundlicher Stadtflitzer"},
 		{id = "ambulance", name = "Krankenwagen", category = "Fahrzeuge", cls = Ambulance, info = "Rettungswagen"},
+		{id = "suv", name = "Geländewagen", category = "Fahrzeuge", cls = Suv, info = "Kantiger SUV mit Reserverad"},
+		{id = "pickup", name = "Pickup", category = "Fahrzeuge", cls = Pickup, info = "Doppelkabine mit Ladefläche"},
+		{id = "delivery_van", name = "Lieferwagen", category = "Fahrzeuge", cls = DeliveryVan, info = "Kurierdienst mit Hochdach"},
+		{id = "roadster", name = "Roadster", category = "Fahrzeuge", cls = Roadster, info = "Offener Zweisitzer"},
+		{id = "vintage", name = "Oldtimer", category = "Fahrzeuge", cls = VintageCar, info = "Limousine der 1930er"},
+		{id = "formula", name = "Formelwagen", category = "Fahrzeuge", cls = FormulaCar, info = "Monoposto mit Flügeln"},
+		{id = "muscle_car", name = "Muscle-Car", category = "Fahrzeuge", cls = MuscleCar, info = "Fastback mit Rennstreifen"},
+		{id = "minivan", name = "Familienvan", category = "Fahrzeuge", cls = Minivan, info = "Mit Schiebetür und Dachbox"},
+		{id = "monster_truck", name = "Monstertruck", category = "Fahrzeuge", cls = MonsterTruck, info = "Riesenräder und Flammen"},
+		{id = "micro_car", name = "Stadtfloh", category = "Fahrzeuge", cls = MicroCar, info = "Winziger Zweisitzer"},
 	]
 	var styles := CuteParts.STYLE_NAMES
 	var roles := [["paramedic", "Notärztin", "Rettungsdienst"], ["police", "Polizist", "Streife"],

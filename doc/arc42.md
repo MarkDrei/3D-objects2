@@ -56,7 +56,7 @@ materials and textures are generated at runtime (shaders for plush fur, studio s
 | Block | Files | Responsibility |
 |---|---|---|
 | Kit | `src/kit/mesh_gen.gd`, `mats.gd`, `builder.gd`, `plush.gdshader` | mesh generators, cached materials, part composition (groups, mirroring) |
-| Vehicles | `src/objects/vehicles/` | `CarKit` + `Sedan` (sedan/taxi/police), `SportsCar`, `CompactCar`, `Ambulance` |
+| Vehicles | `src/objects/vehicles/` | `CarKit` + `Sedan` (sedan/taxi/police), `SportsCar`, `CompactCar`, `Ambulance`, `Suv`, `Pickup`, `DeliveryVan`, `Roadster`, `VintageCar`, `FormulaCar`, `MuscleCar`, `Minivan`, `MonsterTruck`, `MicroCar` |
 | People | `src/objects/people/person.gd` | one stylised figure, roles change clothes, hair and props |
 | Animals | `src/objects/animals/` | `CuteParts` + `TeddyBear`, `Bunny`, `Unicorn` (style 0/1/2) |
 | Catalog | `src/catalog.gd` | ids, names, categories, classes and properties of all objects |

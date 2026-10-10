@@ -9,7 +9,7 @@ Architecture: [doc/arc42.md](doc/arc42.md).
 
 | Category | Objects |
 |---|---|
-| Fahrzeuge | Limousine, Taxi, Polizei (Kombi), Sportwagen, Kleinwagen, Krankenwagen |
+| Fahrzeuge | Limousine, Taxi, Polizei (Kombi), Sportwagen, Kleinwagen, Krankenwagen, Geländewagen, Pickup, Lieferwagen, Roadster, Oldtimer, Formelwagen, Muscle-Car, Familienvan, Monstertruck, Stadtfloh |
 | Menschen | Notärztin, Polizist, Geschäftsfrau, Kind, Opa |
 | Tiere | Teddybär, Hase, Einhorn – each in three styles: Plüsch, Vinyl, Low-Poly |
 

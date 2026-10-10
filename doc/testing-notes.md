@@ -20,6 +20,10 @@ project on this VPS; delete them if they turn out not to apply here.
 Views for `shots.sh`: `hero,front,side,back,top,face` or custom `c:yaw:pitch:zoom:tx:ty:tz`
 (target offset from the object's centre), e.g. a wheel close-up `c:90:2:0.3:0.9:-0.35:1.4`.
 
+`shots.sh` with five vehicles × four views takes over 10 minutes (software rendering); run it in
+the background or split it. With exactly two views the 2x2 sheet step can fail although all
+single PNGs were written; build a sheet with `sheet.cjs` instead.
+
 Look at screenshots (`build/screenshots/*.png`) with the Read tool. That is the only way to check
 visuals, layout and placement.
 
@@ -120,6 +124,12 @@ visuals, layout and placement.
 - Decals call the inside test thousands of times. Sample profiles into tables
   (`CarKit._tab`), start rays just outside the part, and keep `spacing` coarse on big areas.
   Building a car dropped from 3–6 s to ~0.5 s that way. Measure with a `-s` script.
+- `CarKit.end_z` only finds the body: at a height above the body's top line at that end (cabin,
+  tailgate, bed walls) it walks 2 m inward and returns a z in the middle of the car, so the lamp
+  shows up inside a side window. Pass the back face's z to `CarKit.tail_lights` there.
+- `MeshGen.tube` needs one radius per path point: after `smooth_path`, `resample` the radii.
+- Open-wheel or narrow bodies between the wheels: give the body spec `axles = []` (no arches)
+  and the wheels their own small spec for `CarKit.wheels`.
 - GDScript lambdas capture locals by value: a timing lambda that updates `t` never updates the
   outer `t` (profiling output looked cumulative).
 

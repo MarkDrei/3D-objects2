@@ -479,3 +479,61 @@ static func handles(b: Builder, x: float, y: float, zs: Array) -> void:
 	for z in zs:
 		for side: float in [1.0, -1.0]:
 			b.part(MeshGen.rounded_box(Vector3(0.02, 0.025, 0.13), 0.5), Mats.chrome(), Vector3(side * x, y, z))
+
+
+## All glass of a greenhouse: side windows between the given [z_back, z_front] pairs, plus
+## windscreen and rear window. Extra options: inset, top_cut (see `side_window`), end_top_gap.
+static func glazing(b: Builder, spec: Dictionary, sides: Array, front := true, back := true,
+		opts := {}) -> void:
+	var glass := Mats.glass()
+	var inset: float = opts.get("inset", 0.07)
+	var top_cut: float = opts.get("top_cut", 0.0)
+	for s in sides:
+		var poly := side_window(spec, s[0], s[1], inset, top_cut)
+		if poly.size() > 2:
+			decal(b, spec, true, "left", poly, glass, 0.004, 0.012)
+	var gap: float = opts.get("end_top_gap", 0.06)
+	if front:
+		decal(b, spec, true, "front", end_window(spec, 0.08, 0.04, gap), glass, 0.004, 0.012)
+	if back:
+		decal(b, spec, true, "back", end_window(spec, 0.1, 0.06, opts.get("back_top_gap", gap)), glass,
+				0.004, 0.012)
+
+
+## A tyre with a plain rim, axis along +Z (spare wheels, monster wheels' hub caps).
+static func spare_wheel(b: Builder, pos: Vector3, r: float, w: float, cover: Material = null) -> void:
+	b.group("SpareWheel", pos, Vector3(90, 0, 0))
+	b.part(MeshGen.lathe(PackedVector2Array([Vector2(r * 0.6, -w / 2.0), Vector2(r * 0.95, -w / 2.0),
+			Vector2(r, -w * 0.3), Vector2(r, w * 0.3), Vector2(r * 0.95, w / 2.0), Vector2(r * 0.6, w / 2.0)]), 40),
+			Mats.rubber())
+	if cover:
+		b.part(MeshGen.lathe(PackedVector2Array([Vector2(r * 0.9, -w * 0.45), Vector2(r * 0.9, w * 0.4),
+				Vector2(r * 0.7, w * 0.6), Vector2(0, w * 0.65)]), 40), cover)
+	else:
+		b.part(MeshGen.lathe(PackedVector2Array([Vector2(r * 0.62, -w * 0.4), Vector2(r * 0.62, w * 0.3),
+				Vector2(r * 0.2, w * 0.4), Vector2(0, w * 0.42)]), 32), Mats.plastic(Color(0.55, 0.57, 0.6), 0.45))
+	b.end()
+
+
+## Tail lights on both sides of the back, pressed into the body at height y (y must lie on the
+## body, or pass the back face's z for lights on other parts such as a cabin or tailgate).
+static func tail_lights(b: Builder, spec: Dictionary, x: float, y: float, size: Vector3, at_z := NAN) -> void:
+	for side: float in [1.0, -1.0]:
+		var z := end_z(spec, x, y, false) if is_nan(at_z) else at_z
+		lamp(b, Vector3(side * x, y, z + size.z * 0.15), size, Color(0.9, 0.05, 0.04), Vector3(0, 0, -1), 1.6)
+
+
+## Head lights on both sides of the front.
+static func head_lights(b: Builder, spec: Dictionary, x: float, y: float, size: Vector3,
+		color := Color(1.0, 0.97, 0.88)) -> void:
+	for side: float in [1.0, -1.0]:
+		var z := end_z(spec, x, y, true)
+		lamp(b, Vector3(side * x, y, z - size.z * 0.15), size, color, Vector3(0, 0, 1), 2.4)
+
+
+## x of the cabin side at (y, z).
+static func cabin_side_x(spec: Dictionary, y: float, z: float) -> float:
+	var x := 0.0
+	while x < 3.0 and inside_cabin(spec, Vector3(x, y, z)):
+		x += 0.004
+	return x
